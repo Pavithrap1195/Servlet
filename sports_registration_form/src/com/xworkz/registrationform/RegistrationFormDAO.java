@@ -7,11 +7,22 @@ import java.sql.SQLException;
 
 public class RegistrationFormDAO {
 	
-	public int register(DatabaseDTO dto) {
-		String details = "insert into dto"+"sportsName,fullName,mobileNumber,dateAndTime,gender,ageGroup) values"+"(?,?,?,?,?,?);";
-		int result =0;
+	private String dbDriver = "com.mysql.jdbc.Driver";
+	
+	
+	
+	public String register(DatabaseDTO dto) {
+		
+		String details = "insert into registrationform"+ "(sportsName,fullName,mobileNumber,dateAndTime,gender,ageGroup) values"+"(?,?,?,?,?,?);";
+		String result =null;
 		Connection con = null;
 		try {
+			try {
+				Class.forName(dbDriver);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/registration_form", "root", "Pavixworkz130621");
 			
 			PreparedStatement st = con.prepareStatement(details);
@@ -24,45 +35,14 @@ public class RegistrationFormDAO {
 			
 			System.out.println(st);
 			
-			result = st.executeUpdate();
+			st.executeUpdate();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return 0;
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		return result;
 	}
 
 }
